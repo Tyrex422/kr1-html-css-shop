@@ -33,6 +33,17 @@
   --container-width: 1100px;
 }
 
+:target {
+  outline: 2px dashed var(--color-primary);
+  outline-offset: 4px;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
 /* ===============================
    2. Базовые стили
    =============================== */
@@ -146,6 +157,23 @@ a:focus-visible {
   border-left: 4px solid var(--color-primary);
   background-color: var(--color-surface);
 }
+
+.breadcrumbs {
+  max-width: var(--container-width);
+  margin: 0 auto var(--space-md);
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.breadcrumbs a {
+  color: var(--color-primary);
+}
+
+.breadcrumbs span::before {
+  content: " / ";
+  color: var(--color-muted);
+}
+
 
 /* ===============================
    5. Шапка и навигация
