@@ -72,3 +72,13 @@ orderForm.addEventListener('submit', (event) => {
   // Закрываем модальное окно.
   orderDialog.close();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const links = document.querySelectorAll('.nav__link');
+  const current = location.pathname.split('/').pop() || 'index.html';
+
+  links.forEach(link => {
+    const href = link.getAttribute('href');
+    link.classList.toggle('nav__link--active', href === current);
+  });
+});
