@@ -225,6 +225,19 @@ a:focus-visible {
   align-self: flex-start;
 }
 
+.product-card__image {
+  display: block;
+  width: 100%;
+  height: 300px;         
+  object-fit: cover;     
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+}
+
+.product-card--catalog .product-card__image {
+  height: 220px;
+}
+
 .filters-form {
   display: grid;
   gap: var(--space-md);
@@ -276,6 +289,78 @@ a:focus-visible {
 .breadcrumbs__current::before {
   content: " / ";
   color: var(--color-muted);
+}
+
+/* ===============================
+   Блок FAQ
+   =============================== */
+
+.faq {
+  max-width: var(--container-width);
+  margin: 0 auto var(--space-xl);
+}
+
+.faq__title {
+  margin-top: 0;
+}
+
+.faq__list {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.faq__item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+}
+
+/* Вопрос */
+.faq__question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none; /* убираем стандартный маркер */
+}
+
+/* Убираем стандартный треугольник в WebKit */
+.faq__question::-webkit-details-marker {
+  display: none;
+}
+
+/* Своя стрелка */
+.faq__question::after {
+  content: "+";
+  font-size: 22px;
+  color: var(--color-primary);
+  transition: transform 0.2s ease;
+}
+
+/* Поворот при открытии */
+.faq__item[open] .faq__question::after {
+  content: "−";
+}
+
+/* Ответ */
+.faq__answer {
+  margin: 0;
+  padding: 0 var(--space-md) var(--space-md);
+  color: var(--color-muted);
+}
+
+/* Состояния */
+.faq__question:hover {
+  color: var(--color-primary);
+}
+
+.faq__question:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 /* ===============================
@@ -333,18 +418,142 @@ a:focus-visible {
 }
 
 /* ===============================
-   6. Модальное окно заказа
+   Кнопка «Наверх»
+   =============================== */
+
+.scroll-top {
+  position: fixed;
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  z-index: 900; /* ниже шапки (1000), но выше контента */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+.scroll-top:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+.scroll-top:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.scroll-top:active {
+  transform: translateY(0);
+}
+
+
+.scroll-top[hidden] {
+  display: none;
+}
+
+/* ===============================
+   Модальное окно заказа (улучшенное)
    =============================== */
 
 .order-dialog {
-  width: min(100% - 32px, 560px);
-  padding: var(--space-lg);
+  width: min(100% - 32px, 600px);
+  max-height: calc(100vh - 48px);
+  padding: 0;
   border: none;
   border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden; /* скругления работают и для шапки */
 }
 
 .order-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+/* Анимация появления */
+.order-dialog[open] {
+  animation: dialog-in 0.2s ease-out;
+}
+
+@keyframes dialog-in {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Шапка */
+.order-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.order-dialog__title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.order-dialog__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--color-muted);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.order-dialog__close:hover {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.order-dialog__close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Строка с товаром */
+.order-dialog__product {
+  margin: 0;
+  padding: var(--space-sm) var(--space-lg);
+  background-color: var(--color-surface-accent);
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.order-dialog__product strong {
+  color: var(--color-text);
+}
+
+/* Форма — прокручиваемая область */
+.order-form {
+  padding: var(--space-lg);
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
 }
 
 .order-form__field {
@@ -354,6 +563,8 @@ a:focus-visible {
 .order-form__label {
   display: block;
   margin-bottom: var(--space-xs);
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .order-form__input,
@@ -364,6 +575,7 @@ a:focus-visible {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   font: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .order-form__input:hover,
@@ -375,20 +587,74 @@ a:focus-visible {
 .order-form__input:focus-visible,
 .order-form__select:focus-visible,
 .order-form__textarea:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 3px;
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 87, 184, 0.15);
 }
 
+/* Поле с ошибкой */
+.order-form__input[aria-invalid="true"],
+.order-form__select[aria-invalid="true"],
+.order-form__textarea[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+.order-form__input[aria-invalid="true"]:focus-visible,
+.order-form__select[aria-invalid="true"]:focus-visible,
+.order-form__textarea[aria-invalid="true"]:focus-visible {
+  box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.15);
+}
+
+/* Текст ошибки */
+.order-form__error {
+  margin: var(--space-xs) 0 0;
+  font-size: 13px;
+  color: var(--color-danger);
+}
+
+.order-form__hint {
+  display: block;
+  margin-top: var(--space-xs);
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+/* Два поля в ряд */
+.order-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+/* Чекбокс */
+.order-form__field--checkbox {
+  margin-top: var(--space-sm);
+}
+
+.order-form__checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.order-form__checkbox {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.order-form__link {
+  color: var(--color-primary);
+}
+
+/* Кнопки */
 .order-form__actions {
   display: flex;
+  justify-content: flex-end;
   gap: var(--space-md);
   margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
 }
 
-.success-message {
-  max-width: var(--container-width);
-  margin: var(--space-lg) auto;
-  padding: var(--space-md);
-  border-left: 4px solid var(--color-success);
-  background-color: var(--color-success-bg);
-}
