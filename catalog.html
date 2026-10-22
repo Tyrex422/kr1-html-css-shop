@@ -10,6 +10,7 @@
   <meta property="og:title" content="Учебный интернет-магазин">
   <meta property="og:description" content="Учебный frontend-проект интернет-магазина.">
   <meta property="og:image" content="https://Tyrex422.github.io/kr1-html-css-shop/images/preview.jpg">
+  <script src="js/main.js" defer></script>  
 </head>
 <body>
   <header class="site-header">
@@ -107,25 +108,43 @@
       
         <div class="products-grid">
 
-          <article class="product-card">
-            <h3>Товар 1</h3>
-            <p>Краткое описание учебного товара.</p>
-            <p>Цена: 1000 руб.</p>
-            <a class="button" href="index.html#popular">Подробнее</a>
+          <article class="product-card product-card--featured product-card--catalog">
+            <img
+              class="product-card__image"
+              src="images/product-1.jpg"
+              alt="Товар 1 — Хлеб"
+              loading="lazy"
+            >
+            <h3 class="product-card__title">Хлеб</h3>
+            <p class="product-card__description">Очень вкусный хлеб.</p>
+            <p class="product-card__price">Цена: 60 руб.</p>
+            <a class="button product-card__button" href="index.html#popular">Подробнее</a>
           </article>
 
-          <article class="product-card">
-            <h3>Товар 2</h3>
-            <p>Краткое описание учебного товара.</p>
-            <p>Цена: 1500 руб.</p>
-            <a class="button" href="index.html#popular">Подробнее</a>
+          <article class="product-card product-card--featured product-card--catalog">
+            <img
+              class="product-card__image"
+              src="images/product-2.jpg"
+              alt="Товар 2 — Пирожок"
+              loading="lazy"
+            >
+            <h3 class="product-card__title">Пирожок</h3>
+            <p class="product-card__description">Очень вкусный пирожок.</p>
+            <p class="product-card__price">Цена: 300 руб.</p>
+            <a class="button product-card__button" href="index.html#popular">Подробнее</a>
           </article>
 
-          <article class="product-card">
-            <h3>Товар 3</h3>
-            <p>Краткое описание учебного товара.</p>
-            <p>Цена: 2000 руб.</p>
-            <a class="button" href="index.html#popular">Подробнее</a>
+          <article class="product-card product-card--featured product-card--catalog">
+            <img
+              class="product-card__image"
+              src="images/product-3.jpg"
+              alt="Товар 3 — Сникерс"
+              loading="lazy"
+            >
+            <h3 class="product-card__title">Сникерс</h3>
+            <p class="product-card__description">Очень вкусный cникерс.</p>
+            <p class="product-card__price">Цена: 170 руб.</p>
+            <a class="button product-card__button" href="index.html#popular">Подробнее</a>
           </article>
 
         </div>
@@ -140,5 +159,14 @@
     <p>&copy; 2026 Учебный проект. Все права защищены.</p>
     <p>Дисциплина: Фронтенд и бэкенд разработка</p>
   </footer>
+  <button
+    class="scroll-top"
+    type="button"
+    aria-label="Наверх"
+    title="Наверх"
+    hidden
+  >
+    <span class="scroll-top__icon" aria-hidden="true">/\</span>
+  </button>
 </body>
 </html>
